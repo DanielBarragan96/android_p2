@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:pract_dos/home/home_page.dart';
 
-void main() {
+import 'models/todo_reminder.dart';
+
+void main() async {
   // TODO: inicializar hive y agregar el adapter
+
+  var box = await Hive.openBox('testBox');
+  // box.put('name', 'David');
+  Hive.registerAdapter(ReminderAdapter());
+
   runApp(MyApp());
 }
 
