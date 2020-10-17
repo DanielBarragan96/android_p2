@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pract_dos/home/home_page.dart';
 
 import 'models/todo_reminder.dart';
 
 void main() async {
   // TODO: inicializar hive y agregar el adapter
-
-  var box = await Hive.openBox('testBox');
-  // box.put('name', 'David');
-  Hive.registerAdapter(ReminderAdapter());
+  WidgetsFlutterBinding.ensureInitialized();
+  final _localStorage = await getApplicationDocumentsDirectory();
+  Hive
+    ..init(_localStorage.path)
+    ..registerAdapter(ReminderAdapter());
+  await Hive.openBox('reminderBox');
 
   runApp(MyApp());
 }
