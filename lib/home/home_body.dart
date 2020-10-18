@@ -31,6 +31,7 @@ class _HomeBodyState extends State<HomeBody> {
     }
     if (widget.homeState is LoadedRemindersState) {
       _remindersList = (widget.homeState as LoadedRemindersState).todosList;
+      if (_remindersList == null) _remindersList = List();
       widget.homeBloc.add(OnReminderAddedEvent());
     }
     return ListView.builder(

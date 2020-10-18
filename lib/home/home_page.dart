@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:pract_dos/home/bloc/home_bloc.dart';
 import 'package:pract_dos/home/home_body.dart';
 import 'package:pract_dos/models/todo_reminder.dart';
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
             (result) {
               if (result != null) {
                 // TODO: bloc add evento to add reminder to db
+                _homeBloc.add(OnAddElementEvent(todoReminder: result));
                 // TODO: add reminder to HomeBody list view
               }
             },
@@ -142,12 +144,16 @@ class _HomePageState extends State<HomePage> {
             MaterialButton(
               child: Text("Guardar"),
               onPressed: () {
-                Navigator.of(context).pop(
-                  TodoRemainder(
+                if (_todoTextController.text != "" &&
+                    _horario.format(context) != null) {
+                  TodoRemainder newReminder = TodoRemainder(
                     todoDescription: "${_todoTextController.text}",
                     hour: "${_horario.format(context)}",
-                  ),
-                );
+                  );
+                  Navigator.of(context).pop(newReminder);
+                } else {
+                  Navigator.of(context).pop(null);
+                }
                 _todoTextController.clear();
                 _horario = null;
               },
