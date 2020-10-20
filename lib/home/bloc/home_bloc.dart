@@ -43,47 +43,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  List<dynamic> _loadReminders() {
-    // ver si existen datos To-doRemainder en la box y sacarlos como Lista (no es necesario hacer get ni put)
-    // debe haber un adapter para que la BD pueda detectar el objeto
-    try {
-      var _loadedRemaindersList = _reminderBox.get("reminders");
-      // for (var i = 0; i < _reminderBox.length; i++) {
-      //   TodoRemainder aux =
-      //       _reminderBox.get("reminders").getAt(i) as TodoRemainder;
-      //   if (aux != null) {
-      //     _loadedRemaindersList.add(aux);
-      //   }
-      // }
-      return _loadedRemaindersList;
-    } catch (e) {
-      print(e.toString());
+  List<TodoRemainder> _loadReminders() {
+    List<TodoRemainder> _remindersList = [];
+    if (_reminderBox.isNotEmpty) {
+      for (int index = 0; index < _reminderBox.length; index++) {
+        _remindersList.add(_reminderBox.getAt(index));
+      }
+      return _remindersList;
     }
     throw EmptyDatabase();
   }
 
   void _saveTodoReminder(TodoRemainder todoReminder) {
-    // TODO:add item here
-    if (todoReminder != null) {
-      var reminderList = List();
-      if (_reminderBox.isNotEmpty) {
-        reminderList = _reminderBox.get("reminders");
-      }
-      reminderList.add(todoReminder);
-      _reminderBox.put("reminders", reminderList);
-    }
+    if (todoReminder != null) _reminderBox.add(todoReminder);
   }
 
   void _removeTodoReminder(int removedAtIndex) {
-    // TODO:delete item here
-    var reminderList = List();
-    if (_reminderBox.isNotEmpty) {
-      reminderList = _reminderBox.get("reminders");
-    }
-    if (removedAtIndex < reminderList.length) {
-      reminderList.removeAt(removedAtIndex);
-    }
-    _reminderBox.put("reminders", reminderList);
+    if (_reminderBox.length > removedAtIndex)
+      _reminderBox.deleteAt(removedAtIndex);
   }
 }
 
