@@ -16,12 +16,20 @@ class ReminderAdapter extends TypeAdapter<TodoRemainder> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TodoRemainder();
+    return TodoRemainder(
+      todoDescription: fields[0] as String,
+      hour: fields[1] as String,
+    );
   }
 
   @override
   void write(BinaryWriter writer, TodoRemainder obj) {
-    writer..writeByte(0);
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.todoDescription)
+      ..writeByte(1)
+      ..write(obj.hour);
   }
 
   @override
