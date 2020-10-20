@@ -2,6 +2,8 @@
 
 El reporte se encuentra en este [documento](https://docs.google.com/document/d/1qN-gyxjWl3busk4AefcTSZIOUUqceYbrd-qCWWHQp6c/edit?usp=sharing)
 
+El video de la aplicación funcionando se encuentra en este [link](https://youtu.be/Hqtr-9AjXxc)
+
 ### Introducción
 
 El propósito de la tarea es aplicar los temas vistos en clase, en el transcurso de las sesiones previas al examen, de esta forma servirá de práctica para estudiar antes de la evaluación parcial.
